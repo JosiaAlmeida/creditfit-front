@@ -1,5 +1,18 @@
 @import "./variables.scss"; 
+@import "./button.scss";
 
 .bg-global-primary{
   background-color: $primary-color !important;
+}
+
+.bg-global-primary-10{
+  background-color: $primary-color-10 !important;
+}
+
+.bg-global-secondary{
+  background-color: $secondary-color !important;
+}
+
+.text-global-primary{
+  color: $primary-color !important;
 }

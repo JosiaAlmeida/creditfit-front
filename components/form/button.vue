@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <button :class="classButton">
+  <button :class="classButton" class="border-5">
     {{ text }}
   </button>
 </template>

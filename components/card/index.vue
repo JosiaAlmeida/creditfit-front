@@ -1,7 +1,14 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+defineProps({
+  classCard: {
+    type: String,
+    default: "bg-global-primary",
+  },
+});
+</script>
 
 <template>
-  <div class="card bg-global-primary">
+  <div :class="classCard" class="card">
     <slot />
   </div>
 </template>
