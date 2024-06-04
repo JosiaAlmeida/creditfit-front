@@ -2,8 +2,7 @@
 
 <template>
   <div class="card bg-global-primary">
-    <CardHeader />
-    <CardBody />
+    <slot />
   </div>
 </template>
 

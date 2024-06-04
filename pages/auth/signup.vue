@@ -2,6 +2,10 @@
 definePageMeta({
   layout: "auth",
 });
+
+useHead({
+  title: "Creditfit - Criar Conta",
+});
 </script>
 
 <template>
@@ -9,7 +13,10 @@ definePageMeta({
     <div class="container h-100">
       <div class="row h-100 align-items-center">
         <div class="col-md-6 mx-auto">
-          <Card />
+          <Card>
+            <CardSignupHeader />
+            <CardSignupBody
+          /></Card>
         </div>
       </div>
     </div>
