@@ -29,7 +29,6 @@ defineProps({
     @click="handleFunction()"
     :disabled="disabled"
     :class="classButton"
-    class="border-5"
   >
     {{ text }}
   </button>
