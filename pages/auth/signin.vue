@@ -1,9 +1,11 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+definePageMeta({
+  layout: "auth",
+});
+</script>
 
 <template>
-  <div>
-    Page: auth/signin
-  </div>
+  <div>Page: auth/signin</div>
 </template>
 
 <style scoped></style>
