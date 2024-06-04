@@ -3,8 +3,10 @@
 <template>
   <div>
     <p>Divididas em:</p>
-    <div class="d-flex flex-wrap gap-3">
-      <CardTerm v-for="i in 4" :key="i" :selected="i == 2" />
+    <div class="row">
+      <div v-for="i in 4" :key="i" class="col-6 mb-4">
+        <CardTerm :selected="i == 2" />
+      </div>
     </div>
   </div>
 </template>
