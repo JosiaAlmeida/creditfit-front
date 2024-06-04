@@ -16,5 +16,13 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: ["@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
+  modules: [
+    // [
+    //   "@pinia/nuxt",
+    //   {
+    //     autoImports: ["defineStore", "acceptHMRUpdate"],
+    //   },
+    // ],
+    // "@pinia-plugin-persistedstate/nuxt",
+  ],
 });
