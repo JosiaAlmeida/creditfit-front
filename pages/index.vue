@@ -3,6 +3,10 @@ const amount = ref<number>(10000);
 const infoText = [
   "Você possui saldo para Crédito Consignado pela empresa Seguros Seguradora. Faça uma simulação! Digite quanto você precisa:",
 ];
+
+const setAmount = (value: number) => {
+  amount.value = value;
+};
 </script>
 
 <template>
@@ -15,17 +19,16 @@ const infoText = [
             <div class="card-body pb-5">
               <h6 class="text-global-primary fw-bold">Simular Empréstimo</h6>
               <BoxInfo class="mt-3" :text="infoText[0]" />
-              <div class="my-4 text-center mx-auto w-50">
-                <h4 class="fw-bold bg-global-primary-10 rounded text-global-primary">
+              <div class="my-4 d-flex justify-content-center mx-auto">
+                <h5
+                  class="fw-bold text-nowrap bg-global-primary-10 px-3 py-2 rounded-5 text-global-primary-2"
+                >
                   {{
-                    amount.toLocaleString("de-DE", {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })
+                    amount.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
                   }}
-                </h4>
+                </h5>
               </div>
-              <FormInputRange />
+              <StepsOne :handle-function="setAmount" :amount-range="amount" />
             </div>
           </Card>
           <div class="d-flex gap-3 mt-4 justify-content-end">
@@ -44,4 +47,8 @@ const infoText = [
   </div>
 </template>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.min-card-to-text {
+  width: 35%;
+}
+</style>

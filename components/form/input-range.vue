@@ -1,8 +1,24 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const props = defineProps({
+  amountRange: {
+    type: Number,
+  },
+  handleFunction: {
+    type: Function,
+    default: (value: number) => value,
+  },
+});
+const amount = computed(() => props.amountRange);
+</script>
 
 <template>
   <div>
-    <input type="range" class="w-100" />
+    <input
+      :value="amount"
+      type="range"
+      @input="({ target }) => handleFunction(Number(target.value))"
+      class="w-100"
+    />
   </div>
 </template>
 
