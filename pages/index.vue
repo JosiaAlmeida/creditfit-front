@@ -2,8 +2,7 @@
 
 <template>
   <div>
-    <Navbar />
-    <slot />
+    Page: index
   </div>
 </template>
 
