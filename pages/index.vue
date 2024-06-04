@@ -1,5 +1,7 @@
-<script lang="ts" setup>
-const amount = ref<number>(10000);
+<script setup>
+const router = useRouter();
+
+const amount = ref(10000);
 const step = ref(0);
 
 const infoStep = [
@@ -20,17 +22,13 @@ const infoStep = [
       "Pronto! Agora você já pode solicitar o empréstimo e recebê-lo na sua Conta Credifit! Veja o resumo da simulação!",
     button: "Solicitar empréstimo",
   },
-  {
-    titleText: "",
-    infoBox:
-      "Você solicitou seu empréstimo! Agora aguarde as etapas de análises serem concluídas!",
-    button: "Novo empréstimo",
-  },
 ];
 
-const handleStep = (value: number) => {
+const handleStep = () => {
   const element = step.value + 1;
-  step.value = element > infoStep.length - 1 ? infoStep.length - 1 : element;
+  const validateStep = element > infoStep.length - 1;
+  step.value = validateStep ? infoStep.length - 1 : element;
+  if (validateStep) router.push("/emprestimos");
 };
 
 const lessStep = () => {
@@ -38,7 +36,7 @@ const lessStep = () => {
   step.value = element < 0 ? 0 : element;
 };
 
-const setAmount = (value: number) => {
+const setAmount = (value) => {
   amount.value = value;
 };
 </script>
@@ -46,7 +44,7 @@ const setAmount = (value: number) => {
 <template>
   <div class="container">
     <div class="row mb-5">
-      <form @submit.prevent="handleStep(1)" class="col-md-6 mt-4 mx-auto">
+      <form @submit.prevent="handleStep()" class="col-md-6 mt-4 mx-auto">
         <BreadCrumb />
         <div class="mt-4">
           <Card class-card="shadow border-0 rounded-3">
