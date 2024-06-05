@@ -1,11 +1,18 @@
 <script setup>
 import { useAuthStore } from "~/store/auth";
+import { useLoanRequestStore } from "~/store/loan_request/index";
 
 const router = useRouter();
 const useAuth = useAuthStore();
+const useLoanRequest = useLoanRequestStore();
 
-const amount = ref(10000);
+const maxAmount = computed(() => useAuth.getUser?.salary * 0.35 || 10000);
+const terms = computed(() => useLoanRequest.getSimulatorsTerm);
+
+const amount = ref(0);
 const step = ref(0);
+const loading = ref(false);
+const termSelected = reactive({ term: 0, amount: 0 });
 
 const infoStep = [
   {
@@ -27,15 +34,27 @@ const infoStep = [
   },
 ];
 
-const maxAmount = computed(() => useAuth.getUser.salary * 0.35);
-
-const handleStep = () => {
+const handleStep = async () => {
+  loading.value = true;
   const element = step.value + 1;
   const validateStep = element > infoStep.length - 1;
   step.value = validateStep ? infoStep.length - 1 : element;
-  if (validateStep) router.push("/emprestimos");
+  if (step.value == 1)
+    await useLoanRequest.simulator(amount.value, useAuth.getUser?.salary);
+  if (validateStep) {
+    const { status } = await useLoanRequest.createLoanRequest(
+      useAuth.getToken,
+      termSelected.amount,
+      termSelected.term
+    );
+    if (status == "success") router.push("/emprestimos");
+  }
+  loading.value = false;
 };
-
+const selectedTerm = ({ term, amount }) => {
+  termSelected.term = term;
+  termSelected.amount = amount;
+};
 const lessStep = () => {
   const element = step.value - 1;
   step.value = element < 0 ? 0 : element;
@@ -51,7 +70,7 @@ const setAmount = (value) => {
     <div class="row mb-5">
       <form @submit.prevent="handleStep()" class="col-md-6 mt-4 mx-auto">
         <BreadCrumb />
-        <div class="mt-4">
+        <fieldset :disabled="loading" class="mt-4">
           <Card class-card="shadow border-0 rounded-3">
             <div class="card-body pb-5">
               <h6 class="text-global-primary fw-bold">{{ infoStep[step].titleText }}</h6>
@@ -71,8 +90,18 @@ const setAmount = (value) => {
                 :amount-range="amount"
                 :max-amount="maxAmount"
               />
-              <StepsTwo v-if="step == 1" />
-              <StepsThree v-if="step == 2" />
+              <StepsTwo
+                v-if="step == 1"
+                :terms="terms"
+                :selected-term="selectedTerm"
+                :selected="termSelected.term"
+              />
+              <StepsThree
+                v-if="step == 2"
+                :amount="amount"
+                :term-amount="termSelected.amount"
+                :term="termSelected.term"
+              />
             </div>
           </Card>
           <div class="d-flex gap-3 mt-4 justify-content-end">
@@ -90,7 +119,7 @@ const setAmount = (value) => {
               }`"
             />
           </div>
-        </div>
+        </fieldset>
       </form>
     </div>
   </div>
