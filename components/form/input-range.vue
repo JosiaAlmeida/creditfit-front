@@ -3,6 +3,9 @@ const props = defineProps({
   amountRange: {
     type: Number,
   },
+  maxRange: {
+    type: Number,
+  },
   handleFunction: {
     type: Function,
     default: (value: number) => value,
@@ -16,6 +19,7 @@ const amount = computed(() => props.amountRange);
     <input
       :value="amount"
       type="range"
+      :max="maxRange"
       @input="({ target }) => handleFunction(Number(target.value))"
       class="w-100"
     />

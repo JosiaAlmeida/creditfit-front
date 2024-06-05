@@ -1,5 +1,13 @@
 <script lang="ts" setup>
 defineProps({
+  term: {
+    type: Number,
+    default: 1,
+  },
+  amount: {
+    type: Number,
+    default: 1,
+  },
   selected: {
     type: Boolean,
     default: false,
@@ -13,7 +21,10 @@ defineProps({
     class="card position-relative text-center shadow border-0 card-body"
   >
     <p class="mb-0">
-      1x de <span class="text-global-primary fs-6 fw-bold">10.000,00</span>
+      {{ term }}x de
+      <span class="text-global-primary fs-6 fw-bold">{{
+        amount.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+      }}</span>
     </p>
   </div>
 </template>
@@ -21,6 +32,7 @@ defineProps({
 <style lang="scss" scoped>
 .card {
   border-radius: 8px;
+  cursor: pointer;
   p {
     font-size: 12px;
   }

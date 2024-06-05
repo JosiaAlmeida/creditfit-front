@@ -1,5 +1,19 @@
-<script lang="ts" setup>
+<script setup>
+import { useAuthStore } from "~/store/auth";
+import { useLoanRequestStore } from "~/store/loan_request";
+
+useHead({
+  title: "Creditfit - Emprestmimo",
+});
 const router = useRouter();
+const useAuth = useAuthStore();
+const useLoanRequest = useLoanRequestStore();
+
+onMounted(async () => {
+  await useLoanRequest.listMyLoanRequest(useAuth.getToken);
+});
+
+const loanRequest = computed(() => useLoanRequest.getMyLoanRequest);
 
 const newLoanRequest = () => {
   router.push("/");
@@ -18,13 +32,26 @@ const newLoanRequest = () => {
                 class="mt-3"
                 text="Você solicitou seu empréstimo! Agora aguarde as etapas de análises serem concluídas!"
               />
-              <StepsFour />
+              <div class="accordion" id="accordionExample">
+                <LoanRequest
+                  v-for="(request, i) in loanRequest"
+                  :key="i"
+                  class="mt-3"
+                  :getStatus="request.status"
+                  :indice="i + 1"
+                  :amount="request.amount"
+                  :startDate="request.startMonth"
+                  :endDate="request.expireMonth"
+                  :term="request.term"
+                />
+              </div>
             </div>
           </Card>
           <div class="d-flex gap-3 mt-4 justify-content-end">
             <FormButton
               text="Voltar"
               type="button"
+              :handle-function="newLoanRequest"
               class-button="btn-global-outline-primary rounded-5 px-5 btn py-1 bg-white"
             />
             <FormButton
