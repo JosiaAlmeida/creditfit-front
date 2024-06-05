@@ -4,6 +4,10 @@ const props = defineProps({
     type: String,
     default: "#fff",
   },
+  field: {
+    type: String,
+    default: "",
+  },
   placeholder: {
     type: String,
     default: "",
@@ -12,13 +16,22 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  handleFunction: {
+    type: Function,
+    default: () => false,
+  },
 });
 const cssStyle = computed(() => ({ "--color": props.colorInput }));
 </script>
 
 <template>
   <div :style="cssStyle">
-    <input :type="type" :placeholder="placeholder" class="form-control" />
+    <input
+      @change="({ target }) => handleFunction(target.value, field)"
+      :type="type"
+      :placeholder="placeholder"
+      class="form-control"
+    />
   </div>
 </template>
 

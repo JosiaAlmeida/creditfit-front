@@ -8,17 +8,35 @@ defineProps({
     type: String,
     default: "",
   },
+  nameInput: {
+    type: String,
+    default: "",
+  },
   classLabel: {
     type: String,
     default: "",
+  },
+  valueSet: {
+    type: String,
+    default: "",
+  },
+  handleFunction: {
+    type: Function,
+    default: () => false,
   },
 });
 </script>
 
 <template>
   <div class="form-check d-flex gap-2 align-items-center">
-    <input class="form-check-input" type="radio" :name="idInput" :id="idInput" />
-    <label :class="classLabel" class="form-check-label" :for="idInput">
+    <input
+      @change="() => handleFunction(valueSet)"
+      class="form-check-input"
+      type="radio"
+      :name="idInput"
+      :id="nameInput"
+    />
+    <label :class="classLabel" class="form-check-label" :for="nameInput">
       {{ labelText }}
     </label>
   </div>
