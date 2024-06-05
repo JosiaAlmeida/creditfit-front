@@ -1,4 +1,7 @@
 <script lang="ts" setup>
+import { useAuthStore } from "@/store/auth";
+
+const useAuth = useAuthStore();
 const form = reactive({
   full_name: "",
   cpf: "",
@@ -17,10 +20,14 @@ const handleSetValue = (value: string, field: string) => {
 const setType = (value) => {
   handleSetValue(value, "role");
 };
+
+const save = async () => {
+  await useAuth.signup(form);
+};
 </script>
 
 <template>
-  <div class="card-body">
+  <form @submit.prevent="save()" class="card-body">
     <div class="d-flex justify-content-center gap-5 mb-3">
       <FormInputCheckbox
         label-text="Funcionário"
@@ -61,6 +68,7 @@ const setType = (value) => {
         field="cpf"
         type="text"
         class="mb-3 w-100"
+        :maxlength="11"
         placeholder="Seu CPF"
       />
       <FormInputText
@@ -76,6 +84,7 @@ const setType = (value) => {
         :handle-function="handleSetValue"
         field="cnpj"
         type="text"
+        :maxlength="11"
         class="mb-3 w-100"
         placeholder="Seu CNPJ"
       />
@@ -106,7 +115,7 @@ const setType = (value) => {
     <div class="text-end">
       <FormButton text="Criar Conta" class-button="btn text-white border rounded-5" />
     </div>
-  </div>
+  </form>
 </template>
 
 <style scoped></style>

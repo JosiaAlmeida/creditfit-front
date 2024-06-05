@@ -8,6 +8,9 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  maxlength: {
+    type: Number,
+  },
   placeholder: {
     type: String,
     default: "",
@@ -29,6 +32,7 @@ const cssStyle = computed(() => ({ "--color": props.colorInput }));
     <input
       @change="({ target }) => handleFunction(target.value, field)"
       :type="type"
+      :maxlength="maxlength"
       :placeholder="placeholder"
       class="form-control"
     />
