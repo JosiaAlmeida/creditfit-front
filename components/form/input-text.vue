@@ -4,6 +4,10 @@ const props = defineProps({
     type: String,
     default: "#fff",
   },
+  required: {
+    type: Boolean,
+    default: false,
+  },
   field: {
     type: String,
     default: "",
@@ -30,6 +34,7 @@ const cssStyle = computed(() => ({ "--color": props.colorInput }));
 <template>
   <div :style="cssStyle">
     <input
+      :required="required"
       @change="({ target }) => handleFunction(target.value, field)"
       :type="type"
       :maxlength="maxlength"

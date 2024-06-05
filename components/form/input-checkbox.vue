@@ -20,6 +20,11 @@ defineProps({
     type: String,
     default: "",
   },
+
+  required: {
+    type: Boolean,
+    default: false,
+  },
   handleFunction: {
     type: Function,
     default: () => false,
@@ -30,6 +35,7 @@ defineProps({
 <template>
   <div class="form-check d-flex gap-2 align-items-center">
     <input
+      :required="required"
       @change="() => handleFunction(valueSet)"
       class="form-check-input"
       type="radio"

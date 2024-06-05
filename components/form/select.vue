@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 defineProps({
   companies: {
     type: Array,
@@ -7,6 +7,10 @@ defineProps({
   field: {
     type: String,
     default: "",
+  },
+  required: {
+    type: Boolean,
+    default: false,
   },
   handleFunction: {
     type: Function,
@@ -18,12 +22,16 @@ defineProps({
 <template>
   <div>
     <select
+      :required="required"
       @change="({ target }) => handleFunction(target.value, field)"
       class="form-select text-white"
       name="company"
       id="company"
     >
-      <option value="">Selecione a empresa</option>
+      <option class="text-black" value="">Selecione a empresa</option>
+      <option v-for="(comp, i) in companies" :key="i" :value="comp.id" class="text-black">
+        {{ comp.company_name }}
+      </option>
     </select>
   </div>
 </template>

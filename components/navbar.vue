@@ -1,4 +1,14 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useAuthStore } from "@/store/auth";
+const useAuth = useAuthStore();
+const router = useRouter();
+onMounted(async () => {
+  await useAuth.profile();
+  if (!useAuth.getToken) router.push("/auth/signin");
+});
+
+const user = computed(() => useAuth.getUser);
+</script>
 
 <template>
   <nav class="navbar navbar-expand-lg bg-global-primary">
@@ -18,7 +28,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-0">
+        <ul v-if="user" class="navbar-nav ms-auto mb-0">
           <li class="nav-item text-white dropdown">
             <a
               class="nav-link text-white dropdown-toggle"
@@ -28,7 +38,7 @@
               aria-expanded="false"
             >
               <img src="/img/icon/user.svg" alt="Icone de usuário" class="img-fluid" />
-              Josia Almeida
+              {{ user?.full_name }}
             </a>
           </li>
         </ul>

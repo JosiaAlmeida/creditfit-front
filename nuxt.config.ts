@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     },
   },
   css: ["@/public/assets/sass/global.scss"],
+  plugins: ["@/plugins/swal.ts"],
   modules: [
     [
       "@pinia/nuxt",
@@ -27,4 +28,5 @@ export default defineNuxtConfig({
     ],
     // "@pinia-plugin-persistedstate/nuxt",
   ],
+  ssr: false,
 });
