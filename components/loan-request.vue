@@ -12,6 +12,10 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  companyName: {
+    type: String,
+    default: "",
+  },
   startDate: {
     type: String,
     default: "",
@@ -102,7 +106,7 @@ const setStateHiddenMore = () => {
         <div class="row mt-4">
           <div class="col-6 mb-3">
             <p class="fw-bold mb-2">Empresa</p>
-            <p class="mb-0">R$10.000,00</p>
+            <p class="mb-0">{{ companyName }}</p>
           </div>
           <div v-if="showMore" class="col-6 mb-3">
             <p class="fw-bold mb-2">Total Financiado</p>

@@ -14,6 +14,7 @@ onMounted(async () => {
 });
 
 const loanRequest = computed(() => useLoanRequest.getMyLoanRequest);
+const company = computed(() => useAuth.getUser.company_name);
 
 const newLoanRequest = () => {
   router.push("/");
@@ -43,6 +44,7 @@ const newLoanRequest = () => {
                   :startDate="request.startMonth"
                   :endDate="request.expireMonth"
                   :term="request.term"
+                  :company-name="company"
                 />
               </div>
             </div>
