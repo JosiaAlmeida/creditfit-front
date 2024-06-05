@@ -2,6 +2,9 @@
 import { useAuthStore } from "~/store/auth";
 import { useLoanRequestStore } from "~/store/loan_request";
 
+useHead({
+  title: "Creditfit - Emprestmimo",
+});
 const router = useRouter();
 const useAuth = useAuthStore();
 const useLoanRequest = useLoanRequestStore();
