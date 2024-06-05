@@ -1,5 +1,8 @@
 <script setup>
+import { useAuthStore } from "~/store/auth";
+
 const router = useRouter();
+const useAuth = useAuthStore();
 
 const amount = ref(10000);
 const step = ref(0);
@@ -23,6 +26,8 @@ const infoStep = [
     button: "Solicitar empréstimo",
   },
 ];
+
+const maxAmount = computed(() => useAuth.getUser.salary * 0.35);
 
 const handleStep = () => {
   const element = step.value + 1;
@@ -64,6 +69,7 @@ const setAmount = (value) => {
                 v-if="step == 0"
                 :handle-function="setAmount"
                 :amount-range="amount"
+                :max-amount="maxAmount"
               />
               <StepsTwo v-if="step == 1" />
               <StepsThree v-if="step == 2" />

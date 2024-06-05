@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useApi } from "@/composables/useApi";
 
 export const useCompanyStore = defineStore("useCompanyStore", {
   state: () => ({
@@ -9,9 +10,7 @@ export const useCompanyStore = defineStore("useCompanyStore", {
   },
   actions: {
     async list() {
-      const { data, error, status } = await useFetch(
-        "http://localhost:3000/company"
-      );
+      const { data, error, status } = await useApi("company");
       if (status.value == "success") {
         this.companies = data.value;
       }

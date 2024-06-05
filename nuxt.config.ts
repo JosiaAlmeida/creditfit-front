@@ -28,5 +28,10 @@ export default defineNuxtConfig({
     ],
     // "@pinia-plugin-persistedstate/nuxt",
   ],
+  runtimeConfig: {
+    public: {
+      api: process.env.NUXT_API,
+    },
+  },
   ssr: false,
 });

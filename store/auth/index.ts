@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useApi } from "@/composables/useApi";
 
 export const useAuthStore = defineStore("useAuthStore", {
   state: () => ({
@@ -12,13 +13,10 @@ export const useAuthStore = defineStore("useAuthStore", {
   actions: {
     async signup(dataSave: ICreateUser) {
       const { $swal } = useNuxtApp();
-      const { data, error, status } = await useFetch(
-        "http://localhost:3000/auth/signup",
-        {
-          method: "Post",
-          body: dataSave,
-        }
-      );
+      const { data, error, status } = await useApi("auth/signup", {
+        method: "Post",
+        body: dataSave,
+      });
       if (error.value) {
         $swal.fire({
           icon: "error",
@@ -35,13 +33,10 @@ export const useAuthStore = defineStore("useAuthStore", {
     },
     async signin(email: string, password: string) {
       const { $swal } = useNuxtApp();
-      const { data, error, status } = await useFetch(
-        "http://localhost:3000/auth/signin",
-        {
-          method: "Post",
-          body: { email: email, password: password },
-        }
-      );
+      const { data, error, status } = await useApi("auth/signin", {
+        method: "Post",
+        body: { email: email, password: password },
+      });
       if (error.value) {
         $swal.fire({
           icon: "error",
@@ -58,14 +53,11 @@ export const useAuthStore = defineStore("useAuthStore", {
     },
     async profile() {
       this.getTokenActions();
-      const { data, error, status } = await useFetch(
-        "http://localhost:3000/auth/profile",
-        {
-          headers: {
-            authorization: `Bearer ${this.getToken}`,
-          },
-        }
-      );
+      const { data, error, status } = await useApi("auth/profile", {
+        headers: {
+          authorization: `Bearer ${this.getToken}`,
+        },
+      });
       if (status.value != "success") {
         localStorage.clear();
       } else {
