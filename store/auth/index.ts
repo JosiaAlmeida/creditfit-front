@@ -27,8 +27,8 @@ export const useAuthStore = defineStore("useAuthStore", {
           icon: "success",
           text: "Aguarde o redirecionamento",
         });
-        this.access_token = data.value.data.access_token;
-        this.user = data.value.data.user;
+
+        this.setToken(data.value.data.access_token);
       }
     },
     async signin(email: string, password: string) {
